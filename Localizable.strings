@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  CityB2B
+
+  Created by Fei Wang on 1/3/2023.
+  
+*/
+"app_name" = "My App";
+"welcome_message" = "Welcome to My App";

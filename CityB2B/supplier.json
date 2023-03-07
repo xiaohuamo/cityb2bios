@@ -1,0 +1,204 @@
+{
+    "status": 200,
+    "message": "成功",
+    "result": {
+        "is_has_suppliers": 1,
+        "is_has_supillers_match": 0,
+        "category": [{
+            "id": "106124101",
+            "name": "肉类海鲜",
+            "alias": "106124101",
+            "imageUrl": "http://127.0.0.1/static/category/meet.png"
+        }, {
+            "id": "106124108",
+            "name": "蔬菜水果",
+            "alias": "106124108",
+            "imageUrl": ""
+        }],
+        "suppliers_goods": [{
+            "cate": {
+                "id": "106124101",
+                "name": "肉类海鲜",
+                "alias": "106124101",
+                "imageUrl": "http://127.0.0.1/static/category/meet.png"
+            },
+            "factory": [{
+                "id": 319188,
+                "user_id": 319188,
+                "logo": "https://www.cityb2b.com/data/upload/2022-03/20220316131516206759.png",
+                "displayName": "DNL TRADING PTY LTD",
+                "phone": "0451288666",
+                "googleMap": "30 Blaxland Ave, Thomastown VIC 3074, Australia",
+                "business_nick_name": "",
+                "business_note": "",
+                "pic": "https://www.cityb2b.com/data/upload/2020-11/20201127114317904278.jpg",
+                "categoryId": {
+                    "1": "106124101"
+                },
+                "remark_name": "DNL TRADING PTY LTD",
+                "py": "D",
+                "notice": [{
+                    "id": 1,
+                    "title": "测试通知"
+                }],
+                "box_title": "为您优选",
+                "goods": [{
+                    "id": 385891,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220124180311204269_150x150_fill.jpg",
+                    "title": "Chicken Carcass",
+                    "subtitle": "鸡骨",
+                    "unit": "Ctn",
+                    "price": "5.00",
+                    "old_price": "5.00",
+                    "discount": ""
+                }, {
+                    "id": 387600,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220129063704102232_150x150_fill.jpg",
+                    "title": "Bone",
+                    "subtitle": "猪骨",
+                    "unit": "kg",
+                    "price": "0.00",
+                    "old_price": "0.00",
+                    "discount": ""
+                }, {
+                    "id": 385996,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-02/20220227133642189362_100x100_fill.jpg",
+                    "title": "SHD Sliced",
+                    "subtitle": "羊肩肉片",
+                    "unit": "kg",
+                    "price": "19.80",
+                    "old_price": "19.80",
+                    "discount": ""
+                }, {
+                    "id": 386982,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220129102618431805_150x150_fill.jpg",
+                    "title": "Lamb Backstrap",
+                    "subtitle": "羊柳",
+                    "unit": "kg",
+                    "price": "30.00",
+                    "old_price": "30.00",
+                    "discount": ""
+                }]
+            }, {
+                "id": 319188,
+                "user_id": 321466,
+                "logo": "https://www.cityb2b.com/data/upload/2022-03/20220316131516206759.png",
+                "displayName": "DNL TRADING PTY LTD",
+                "phone": "0451288666",
+                "googleMap": "30 Blaxland Ave, Thomastown VIC 3074, Australia",
+                "business_nick_name": null,
+                "business_note": null,
+                "pic": "https://www.cityb2b.com/data/upload/2020-11/20201127114317904278.jpg",
+                "categoryId": {
+                    "1": "106124101"
+                },
+                "remark_name": "DNL TRADING PTY LTD",
+                "py": "D",
+                "notice": [{
+                    "id": 1,
+                    "title": "测试通知"
+                }],
+                "box_title": "为您优选",
+                "goods": [{
+                    "id": 385891,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220124180311204269_150x150_fill.jpg",
+                    "title": "Chicken Carcass",
+                    "subtitle": "鸡骨",
+                    "unit": "Ctn",
+                    "price": "5.00",
+                    "old_price": "5.00",
+                    "discount": ""
+                }, {
+                    "id": 387600,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220129063704102232_150x150_fill.jpg",
+                    "title": "Bone",
+                    "subtitle": "猪骨",
+                    "unit": "kg",
+                    "price": "0.00",
+                    "old_price": "0.00",
+                    "discount": ""
+                }, {
+                    "id": 386000,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-02/20220227140203162821_100x100_fill.jpg",
+                    "title": "Cutlets",
+                    "subtitle": "羊扒",
+                    "unit": "kg",
+                    "price": "38.00",
+                    "old_price": "38.00",
+                    "discount": ""
+                }, {
+                    "id": 386984,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/thumbnails/2022-01/20220129113841101534_150x150_fill.jpg",
+                    "title": "Leg Diced",
+                    "subtitle": "羊腿肉粒",
+                    "unit": "kg",
+                    "price": "19.80",
+                    "old_price": "19.80",
+                    "discount": ""
+                }]
+            }]
+        }, {
+            "cate": {
+                "id": "106124108",
+                "name": "蔬菜水果",
+                "alias": "106124108",
+                "imageUrl": ""
+            },
+            "factory": [{
+                "id": 218812,
+                "user_id": 321435,
+                "logo": "https://www.cityb2b.com/data/upload/2021-09/20210914185929261804.jpg",
+                "displayName": "MK FOOD PACK",
+                "phone": "0432708904",
+                "googleMap": "11 Northcote Ave, Balwyn VIC 3103, Australia",
+                "business_nick_name": null,
+                "business_note": null,
+                "pic": "https://www.cityb2b.com/data/upload/2021-09/20210914190053143845.jpg",
+                "categoryId": {
+                    "1": "106124108"
+                },
+                "remark_name": "MK FOOD PACK",
+                "py": "M",
+                "notice": [],
+                "box_title": "为您优选",
+                "goods": [{
+                    "id": 332199,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/2020-08/20200816142738141486.jpg",
+                    "title": "黃皮紅薯Potato Sweet Gold 500g",
+                    "subtitle": "",
+                    "unit": "500g",
+                    "price": "1.69",
+                    "old_price": "1.69",
+                    "discount": ""
+                }, {
+                    "id": 332306,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/2020-08/20200815161611187437.jpg",
+                    "title": "长黄瓜-青瓜Cucumber Continental 1EA",
+                    "subtitle": "",
+                    "unit": "1EA",
+                    "price": "1.90",
+                    "old_price": "1.90",
+                    "discount": ""
+                }, {
+                    "id": 332291,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/2020-08/20200816143409138697.jpg",
+                    "title": "牛油果Avocado 1EA",
+                    "subtitle": "",
+                    "unit": "1EA",
+                    "price": "1.50",
+                    "old_price": "1.50",
+                    "discount": ""
+                }, {
+                    "id": 332513,
+                    "menu_pic": "https://www.cityb2b.com/data/upload/2020-08/20200816162446973731.jpg",
+                    "title": "茼蒿Chrysanthemum (Tung Ho)500g",
+                    "subtitle": "",
+                    "unit": "500g",
+                    "price": "3.99",
+                    "old_price": "3.99",
+                    "discount": ""
+                }]
+            }]
+        }]
+    }
+}
