@@ -23,7 +23,8 @@ class UserViewModel: ObservableObject {
     @Published var user: User?
     @Published var currentUser: CurrentUser?
     @Published var addressList: [Address]?
-    @Published var currentAddress: Address?
+    @Published var languageList: [Language]?
+    @Published var currentAddress: Address1?
     
     @Published var showingAlert : Bool = false
     @Published var alertMessage = ""
@@ -153,6 +154,53 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    
+    
+  
+    
+    
+    func saveAddressInfo(User_temp_tokens: String,id: Int, displayName: String, first_name: String, last_name : String, phone: String, email: String, address: String,isDefaultAddress: String, completion: @escaping (Result<String, Error>) -> Void) {
+    let url = "https://m.marsfresh.com/api/addAddress"
+    let params = ["id":id,"displayName":displayName,"first_name":first_name,"last_name":last_name,"phone":phone,"email":email,"address":address,"isDefaultAddress":isDefaultAddress] as [String : Any]
+    let headers: HTTPHeaders = [
+        "token": User_temp_tokens
+    ]
+    
+    
+    AF.request(url,
+               method: .post,
+               parameters: params,
+               encoding: URLEncoding.default,
+               headers: headers).responseData {  response in
+        debugPrint(response)
+        switch response.result {
+        case .success(let value):
+            
+            let json = JSON(value)
+            let status = json["status"].intValue
+            if(status == 200 ){
+               
+                completion(.success(("success")))
+               
+            }else if(status == 100 ){
+                let errorMessage = json["message"].stringValue
+                let error = NSError(domain: "MyDomain", code: status, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                  
+                completion(.failure(error))
+                
+            }else{
+                let errorMessage = "发生错误"
+                let error = NSError(domain: "MyDomain", code: status, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                completion(.failure(error))
+            }
+        case let .failure(error):
+            self.alertTitle = "Errors"
+            self.alertMessage = error.localizedDescription ?? "Something went wrong"
+            self.showingAlert = true
+            completion(.failure(error))
+        }
+    }
+}
     
     func saveCustomerInfo(User_temp_tokens: String,untity_name: String, displayName: String,abn: String, completion: @escaping (Result<String, Error>) -> Void) {
         let url = "https://m.marsfresh.com/api/saveCustomerInfo"
@@ -821,7 +869,7 @@ class UserViewModel: ObservableObject {
                           let addr_post = value["addr_post"].string
                           let is_default_address = value["isDefaultAddress"].intValue
                           let street_number = value["Street_number"].string
-                          let display_name = value["display_name"].stringValue
+                          let display_name = value["displayName"].stringValue
                           let business_hours = value["business_hours"].stringValue
                           let arrive_mode = value["arrive_mode"].stringValue
                           let pic = value["pic"].stringValue
@@ -842,11 +890,61 @@ class UserViewModel: ObservableObject {
         
     }
     
-    func getCurrentAddress(User_temp_tokens: String,id:Int ){
+    func getLanguageList(User_temp_tokens: String){
         
         let user_temp_tokens: String = User_temp_tokens
         
-        self.currentAddress = nil
+        self.languageList = [Language]()
+        
+        
+        let url = "https://m.marsfresh.com/api/selectLanguage"
+        
+        let params = ["page":"1"] as [String : Any]
+        let headers: HTTPHeaders = [
+            "token": user_temp_tokens
+        ]
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: URLEncoding.default, headers: headers).responseData {  response in
+            debugPrint(response)
+            //      debug print 有值
+            switch response.result {
+                
+                
+            case .success(let value):
+                let json = JSON(value)
+                let json1 = json["result"]
+                var id = 0
+                for (key, value) in json1 {
+                    
+                            id += 1
+                          let lang = value["lang"].stringValue
+                          let lang_name = value["lang_name"].stringValue
+                          let lang_name2 = value["lang_name2"].stringValue
+                          let singlelanguage = Language(id: id, lang: lang, lang_name: lang_name, lang_name2: lang_name2)
+                          
+                          self.languageList?.append(singlelanguage)
+                       
+                }
+            
+                
+            case let .failure(error):
+                print("faliuress")
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    func getCurrentAddress(User_temp_tokens: String,id:Int, completion: @escaping (Result<Void, Error>) -> Void){
+        
+        let user_temp_tokens: String = User_temp_tokens
+        
+//        self.currentAddress = nil
         
         
         let url = "https://m.marsfresh.com/api/addressInfo"
@@ -868,37 +966,43 @@ class UserViewModel: ObservableObject {
             case .success(let value):
                 let json = JSON(value)
                 let value = json["result"]
-                
-             
-                    
-                    let id = value["id"].intValue
+                let status = json["status"].intValue
+
+                     let id = value["id"].intValue
                           let user_id = value["user_id"].intValue
                           let first_name = value["first_name"].stringValue
                           let last_name = value["last_name"].stringValue
+                
                           let address = value["address"].stringValue
                           let phone = value["phone"].stringValue
                           let email = value["email"].stringValue
                           let id_number = value["id_number"].stringValue
                           let create_time = value["create_time"].intValue
                           let message_to_business = value["message_to_business"].string
+                
+                
                           let country = value["country"].stringValue
                           let addr_post = value["addr_post"].string
                           let is_default_address = value["isDefaultAddress"].intValue
+                
                           let street_number = value["Street_number"].string
-                          let display_name = value["display_name"].stringValue
-                          let business_hours = value["business_hours"].stringValue
-                          let arrive_mode = value["arrive_mode"].stringValue
-                          let pic = value["pic"].stringValue
+                          let display_name = value["displayName"].stringValue
+                        
 
-                          let singleaddress = Address(id: id, user_id: user_id, first_name: first_name, last_name: last_name, address: address, phone: phone, email: email, id_number: id_number, create_time: create_time, message_to_business: message_to_business, country: country, addr_post: addr_post, is_default_address: is_default_address, Street_number: street_number, display_name: display_name, business_hours: business_hours, arrive_mode: arrive_mode, pic: pic)
+                          let singleaddress = Address1(id: id, user_id: user_id, first_name: first_name, last_name: last_name, address: address, phone: phone, email: email, id_number: id_number, create_time: create_time, message_to_business: message_to_business, country: country, addr_post: addr_post, is_default_address: is_default_address, Street_number: street_number, display_name: display_name)
                           
-                          self.currentAddress? = singleaddress
+                          self.currentAddress = singleaddress
                        
-              
+                completion(.success(()))
+
             
                 
             case let .failure(error):
-                print("faliuress")
+               
+
+                let errorMessage = "发生错误"
+                               let error = NSError(domain: "MyDomain", code: 100, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                               completion(.failure(error))
             }
             
         }

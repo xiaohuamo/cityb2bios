@@ -19,13 +19,13 @@ struct FunctionListView: View {
                 .padding(.leading,15)
             HStack(spacing: 10) {
                 FunctionUnit(image: "qricon", title: "二维码",viewName: MyQrCodeView())
-                FunctionUnit(image: "accounticon", title: "账户设置",viewName: AccountViews(showLoginView:$showLoginView))
+                FunctionUnit(image: "accounticon", title: "账户",viewName: AccountViews(showLoginView:$showLoginView))
                 FunctionUnit(image: "security", title: "安全",viewName: SecurityMainView())
                 FunctionUnit(image: "addressicon", title: "收货地址",viewName: AddressListView())
               
             }.padding(.leading,25)
             HStack(spacing: 10) {
-                FunctionUnit(image: "settingicon", title: "设置",viewName: AboutAppView())
+                FunctionUnit(image: "settingicon", title: "设置",viewName: SystemSettingView())
             }.padding(.leading,25)
         }
     }
