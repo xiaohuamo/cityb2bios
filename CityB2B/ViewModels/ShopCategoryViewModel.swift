@@ -6,12 +6,6 @@
 //
 
 
-//
-//  OrderViewModel.swift
-//  ShoppingApp
-//
-//  Created by kz on 23/01/2023.
-//
 
 import Foundation
 
