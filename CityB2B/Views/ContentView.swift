@@ -8,6 +8,7 @@
 import SwiftUI
 import PartialSheet
 
+
 struct ContentView: View {
     //定义全局环境变量 user
     @EnvironmentObject var user: UserViewModel
@@ -34,6 +35,8 @@ struct ContentView: View {
        @State private var isOrdersViewActive = false
     var body: some View {
         //        这个页面使用了 navigagtionView 这样，并且使用了tabview的地步按钮对象
+        
+    
         NavigationView   {
             
             if user.userIsAuthenticated && !user.userIsAuthenticatedAndSynced {
@@ -81,6 +84,9 @@ struct ContentView: View {
             
             //            @AppStorage("email") private var email:String = "";
             //            @AppStorage("password") private var password:String = "";
+           
+            let language = user.setLanguage(user: user)
+                        UserDefaults.standard.set([language], forKey: "AppleLanguages")
             
             let queue = DispatchQueue(label: "abc")
             
@@ -108,6 +114,7 @@ struct ContentView: View {
             
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

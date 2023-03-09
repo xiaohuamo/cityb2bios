@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  CityB2B
+
+  Created by Fei Wang on 9/3/2023.
+  
+*/
+"language_setting" = "语言设置";
+"english" = "英语";
+"chinese" = "中文";
+"clear_cache" = "清除缓存";
+"about_us" = "关于我们";
+"privacy_policy" = "隐私协议";
+"user_agreement" = "用户协议";
+"detect_new_version" = "检测新版本";
+

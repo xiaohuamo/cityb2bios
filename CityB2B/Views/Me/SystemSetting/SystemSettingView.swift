@@ -3,6 +3,8 @@ import Foundation
 
 struct SystemSettingView: View {
     @EnvironmentObject var user: UserViewModel
+    @EnvironmentObject var functionsVM: FunctionsViewModel
+    
     @Environment(\.presentationMode) var presentationMode
     @State private var cacheSize: String = "0"
     
@@ -10,12 +12,12 @@ struct SystemSettingView: View {
         VStack {
             List {
                 NavigationLink(destination: LanguageSettingView()) {
-                    Text("语言设置")
+                    Text(LocalizedStringKey("language_setting"))
                 }.padding(10)
                 
                 NavigationLink(destination: EmptyView()) {
                                    HStack {
-                                       Text("清除缓存")
+                                       Text(LocalizedStringKey("clear_cache"))
                                        Spacer()
                                        Text(cacheSize)
                                    }
@@ -25,19 +27,19 @@ struct SystemSettingView: View {
                                }.padding(10)
                 
                 NavigationLink(destination: AboutAppView()) {
-                    Text("关于我们")
+                    Text(LocalizedStringKey("about_us"))
                 }.padding(10)
                 
                 NavigationLink(destination: PrivacyPolicyView()) {
-                    Text("隐私协议")
+                    Text(LocalizedStringKey("privacy_policy"))
                 }.padding(10)
                 
                 NavigationLink(destination: TermAndConditionsView()) {
-                    Text("用户协议")
+                    Text(LocalizedStringKey("user_agreement"))
                 }.padding(10)
                 
                 NavigationLink(destination: ContactInfoView()) {
-                    Text("检测新版本")
+                    Text(LocalizedStringKey("detect_new_version"))
                 }.padding(10)
                 
             }
@@ -48,7 +50,7 @@ struct SystemSettingView: View {
             .listRowInsets(EdgeInsets())
             .foregroundColor(Color("fontColorMain"))
         }
-        .navigationBarTitle("设置", displayMode: .inline)
+        .navigationBarTitle(LocalizedStringKey("settings"), displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button(action: {
@@ -62,6 +64,16 @@ struct SystemSettingView: View {
         .onAppear {
             cacheSize = getCurrentCacheSizeInMB()
         }
+        .onReceive(user.objectWillChange) { _ in
+                   // 当 currentLanguage 发生变化时，更新语言
+          
+            
+            let languages = UserDefaults.standard.object(forKey: "AppleLanguages") as? [String]
+            let currentLanguage = languages?.first
+            print("当前语言类型：", currentLanguage)
+                   // 发送系统级通知，以便 UI 更新
+                   NotificationCenter.default.post(name: NSNotification.Name("changeLanguage"), object: nil)
+               }
     }
     
     func getCurrentCacheSizeInMB() -> String {

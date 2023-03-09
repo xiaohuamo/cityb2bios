@@ -12,7 +12,8 @@ import Alamofire
 import Foundation
 
 class FunctionsViewModel: ObservableObject {
-    
+   
+ 
     
     //获得当前输入的类型
     func validateInput(_ input: String) -> Int {

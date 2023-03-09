@@ -24,6 +24,7 @@ class UserViewModel: ObservableObject {
     @Published var currentUser: CurrentUser?
     @Published var addressList: [Address]?
     @Published var languageList: [Language]?
+    @Published var currentLanguage: String? = "en-us"
     @Published var currentAddress: Address1?
     
     @Published var showingAlert : Bool = false
@@ -97,6 +98,7 @@ class UserViewModel: ObservableObject {
                 let json = JSON(value)
                 if let token = json["result"]["token"].string {
                     self.user_temp_tokens = token
+                    self.currentLanguage = json["result"]["lang"].stringValue
                     print("\(self.user_temp_tokens)")
                     self.sync()
                     self.loginSuccessful = true
@@ -258,6 +260,7 @@ class UserViewModel: ObservableObject {
                 let json = JSON(value)
                 if let token = json["result"]["token"].string {
                     self.user_temp_tokens = token
+                    self.currentLanguage = json["result"]["lang"].stringValue
                     print("\(self.user_temp_tokens)")
                     self.sync()
                     self.loginSuccessful = true
@@ -300,7 +303,7 @@ class UserViewModel: ObservableObject {
                 DispatchQueue.main.async{
                     
                     self.user_temp_tokens = value1["token"].stringValue
-                    
+                    self.currentLanguage = value1["lang"].stringValue
                     print("\(self.user_temp_tokens)")
                     //Success
                     self.sync()
@@ -341,6 +344,7 @@ class UserViewModel: ObservableObject {
                 
                 if(status == 200 ){
                     self.user_temp_tokens = value1["token"].stringValue
+                    self.currentLanguage = value1["lang"].stringValue
                     self.sync()
                     
                     completion(.success(()))
@@ -484,7 +488,7 @@ class UserViewModel: ObservableObject {
                 if(status == 200 ){
                     
                     self.user_temp_tokens = value1["token"].stringValue
-                    
+                    self.currentLanguage = value1["lang"].stringValue
                 
                     self.sync()
                     completion(.success(()))
@@ -504,9 +508,68 @@ class UserViewModel: ObservableObject {
             
         }
     }
+    
+    func setLanguage(user: UserViewModel) -> String {
+        var language: String
         
+        // Check if user has selected a language
+        if let deviceLanguage = Locale.preferredLanguages.first,
+           let deviceLanguageCode = Locale.current.languageCode {
+            // Check if device language is supported
+            if deviceLanguageCode == "zh" {
+                language = "zh-Hans"
+            } else {
+                language = "en-US"
+            }
+        } else {
+            // Default to English
+            language = "en-US"
+        }
+ 
+        if(user.currentLanguage == "en-us"){
+            language = "en-US"
+        }else{
+            language = "zh-Hans"
+        }
         
+        UserDefaults.standard.set([language], forKey: "AppleLanguages")
+        self.objectWillChange.send() // 发送信号通知UI进行更新
+        return language
+
+    }
         
+    func changeLanguage(lang: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        let url = "https://m.marsfresh.com/api/changeLanguage"
+        let params = ["lang":lang] as [String : Any]
+        let headers: HTTPHeaders = [
+            "token": user_temp_tokens
+        ]
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: URLEncoding.default, headers: headers).responseData {  response in
+            debugPrint(response)
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                let status = json["status"].intValue
+                if(status == 200 ){
+                    
+                    completion(.success(()))
+                }else{
+                    let errorMessage = "发生错误"
+                    let error = NSError(domain: "MyDomain", code: status, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                    completion(.failure(error))
+                }
+                
+            case let .failure(error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
         
     
     
@@ -678,6 +741,7 @@ class UserViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "password")
         self.currentUser = nil
         self.user_temp_tokens = ""
+        
         self.user = nil
         
         
@@ -689,10 +753,11 @@ class UserViewModel: ObservableObject {
         
         let url = "https://m.marsfresh.com/api/userInfo"
         let user_temp_tokens: String = self.user_temp_tokens
+        let currentLanguage: String = self.currentLanguage ?? "en-us"
         
         let params = ["name":"aaa"]
         let headers: HTTPHeaders = [
-            "token": user_temp_tokens
+            "token": user_temp_tokens, "lang": currentLanguage
         ]
         
         AF.request(url,
